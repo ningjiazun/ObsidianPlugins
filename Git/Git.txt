@@ -1,0 +1,4 @@
+插件名称：Git
+插件作者：Vinzent, (Denis Olehov)
+插件Github地址：https://github.com/denolehov/obsidian-git
+插件功能：该插件允许您将Obsidian文件备份到Github的存储库（例如 GitHub 上的私有存储库）。
