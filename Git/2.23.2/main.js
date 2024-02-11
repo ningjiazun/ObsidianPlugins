@@ -32138,10 +32138,10 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
     const commitOrBackup = plugin.settings.differentIntervalCommitAndPush ? "commit" : "backup";
     const gitReady = plugin.gitReady;
     containerEl.empty();
-    containerEl.createEl("h2", { text: "Git备份设置 Backup settings" });
+    containerEl.createEl("h2", { text: "Git备份设置" });
     if (!gitReady) {
       containerEl.createEl("p", {
-        text: "Git is not ready. When all settings are correct you can configure auto backup, etc."
+        text: "Git还没有准备好。所有设置正确后，您可以配置自动备份等功能。"
       });
     }
     if (gitReady) {
@@ -32382,19 +32382,19 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
       }
     }
     containerEl.createEl("br");
-    containerEl.createEl("h3", { text: "Miscellaneous" });
+    containerEl.createEl("h3", { text: "杂项" });
     new import_obsidian8.Setting(containerEl).setName(
-      "Automatically refresh Source Control View on file changes"
+      "文件更改时自动刷新源代码管理视图"
     ).setDesc(
-      "On slower machines this may cause lags. If so, just disable this option"
+      "在速度较慢的机器上，这可能会导致延迟。 如果是这样，只需禁用此选项"
     ).addToggle(
       (toggle) => toggle.setValue(plugin.settings.refreshSourceControl).onChange((value) => {
         plugin.settings.refreshSourceControl = value;
         plugin.saveSettings();
       })
     );
-    new import_obsidian8.Setting(containerEl).setName("Source Control View refresh interval").setDesc(
-      "Milliseconds to wait after file change before refreshing the Source Control View"
+    new import_obsidian8.Setting(containerEl).setName("源代码管理视图刷新间隔").setDesc(
+      "在速度较慢的机器上，这可能会导致延迟。 如果是这样，只需禁用此选项"
     ).addText(
       (toggle) => toggle.setValue(
         plugin.settings.refreshSourceControlTimer.toString()
@@ -32407,8 +32407,8 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
         plugin.setRefreshDebouncer();
       })
     );
-    new import_obsidian8.Setting(containerEl).setName("Disable notifications").setDesc(
-      "Disable notifications for git operations to minimize distraction (refer to status bar for updates). Errors are still shown as notifications even if you enable this setting"
+    new import_obsidian8.Setting(containerEl).setName("禁用通知").setDesc(
+      "禁用 git 操作的通知以最大程度地减少干扰（请参阅状态栏了解更新）。 即使您启用此设置，错误仍会显示为通知"
     ).addToggle(
       (toggle) => toggle.setValue(plugin.settings.disablePopups).onChange((value) => {
         plugin.settings.disablePopups = value;
@@ -32417,37 +32417,37 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
       })
     );
     if (!plugin.settings.disablePopups)
-      new import_obsidian8.Setting(containerEl).setName("Hide notifications for no changes").setDesc(
-        "Don't show notifications when there are no changes to commit/push"
+      new import_obsidian8.Setting(containerEl).setName("没有更改时隐藏通知").setDesc(
+        "当提交/推送时没有更改不显示通知commit/push"
       ).addToggle(
         (toggle) => toggle.setValue(plugin.settings.disablePopupsForNoChanges).onChange((value) => {
           plugin.settings.disablePopupsForNoChanges = value;
           plugin.saveSettings();
         })
       );
-    new import_obsidian8.Setting(containerEl).setName("Show status bar").setDesc(
-      "Obsidian must be restarted for the changes to take affect"
+    new import_obsidian8.Setting(containerEl).setName("显示状态栏").setDesc(
+      "必须重新启动Obsidian才能使更改生效"
     ).addToggle(
       (toggle) => toggle.setValue(plugin.settings.showStatusBar).onChange((value) => {
         plugin.settings.showStatusBar = value;
         plugin.saveSettings();
       })
     );
-    new import_obsidian8.Setting(containerEl).setName("Show stage/unstage button in file menu").addToggle(
+    new import_obsidian8.Setting(containerEl).setName("在文件菜单中显示阶段/取消阶段按钮stage/unstage").addToggle(
       (toggle) => toggle.setValue(plugin.settings.showFileMenu).onChange((value) => {
         plugin.settings.showFileMenu = value;
         plugin.saveSettings();
       })
     );
-    new import_obsidian8.Setting(containerEl).setName("Show branch status bar").setDesc(
-      "Obsidian must be restarted for the changes to take affect"
+    new import_obsidian8.Setting(containerEl).setName("显示分支状态栏").setDesc(
+      "必须重新启动Obsidian才能使更改生效"
     ).addToggle(
       (toggle) => toggle.setValue(plugin.settings.showBranchStatusBar).onChange((value) => {
         plugin.settings.showBranchStatusBar = value;
         plugin.saveSettings();
       })
     );
-    new import_obsidian8.Setting(containerEl).setName("Show the count of modified files in the status bar").addToggle(
+    new import_obsidian8.Setting(containerEl).setName("在状态栏中显示修改文件的数量").addToggle(
       (toggle) => toggle.setValue(plugin.settings.changedFilesInStatusBar).onChange((value) => {
         plugin.settings.changedFilesInStatusBar = value;
         plugin.saveSettings();
@@ -32459,7 +32459,7 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
         text: "Authentication/Commit Author"
       });
     } else {
-      containerEl.createEl("h3", { text: "Commit Author" });
+      containerEl.createEl("h3", { text: "提交作者" });
     }
     if (plugin.gitManager instanceof IsomorphicGit)
       new import_obsidian8.Setting(containerEl).setName(
@@ -32505,10 +32505,10 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
         });
       });
     containerEl.createEl("br");
-    containerEl.createEl("h3", { text: "Advanced" });
+    containerEl.createEl("h3", { text: "高级" });
     if (plugin.gitManager instanceof SimpleGit) {
-      new import_obsidian8.Setting(containerEl).setName("Update submodules").setDesc(
-        '"Create backup" and "pull" takes care of submodules. Missing features: Conflicted files, count of pulled/pushed/committed files. Tracking branch needs to be set for each submodule'
+      new import_obsidian8.Setting(containerEl).setName("更新子模块").setDesc(
+        '"创建备份"和"拉取"负责子模块。 缺少的功能：冲突文件、拉取/推送/提交文件的计数。需要为每个子模块设置跟踪分支'
       ).addToggle(
         (toggle) => toggle.setValue(plugin.settings.updateSubmodules).onChange((value) => {
           plugin.settings.updateSubmodules = value;
@@ -32527,7 +32527,7 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
       }
     }
     if (plugin.gitManager instanceof SimpleGit)
-      new import_obsidian8.Setting(containerEl).setName("Custom Git binary path").addText((cb) => {
+      new import_obsidian8.Setting(containerEl).setName("自定义Git二进制路径").addText((cb) => {
         var _a2;
         cb.setValue((_a2 = plugin.localStorage.getGitPath()) != null ? _a2 : "");
         cb.setPlaceholder("git");
@@ -32537,8 +32537,8 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
         });
       });
     if (plugin.gitManager instanceof SimpleGit)
-      new import_obsidian8.Setting(containerEl).setName("Additional environment variables").setDesc(
-        "Use each line for a new environment variable in the format KEY=VALUE"
+      new import_obsidian8.Setting(containerEl).setName("附加环境变量").setDesc(
+        "使用格式KEY=VALUE的每一行，作为一个新的环境变量"
       ).addTextArea((cb) => {
         cb.setPlaceholder("GIT_DIR=/path/to/git/dir");
         cb.setValue(plugin.localStorage.getEnvVars().join("\n"));
@@ -32547,7 +32547,7 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
         });
       });
     if (plugin.gitManager instanceof SimpleGit)
-      new import_obsidian8.Setting(containerEl).setName("Additional PATH environment variable paths").setDesc("Use each line for one path").addTextArea((cb) => {
+      new import_obsidian8.Setting(containerEl).setName("附加PATH环境变量路径").setDesc("Use each line for one path").addTextArea((cb) => {
         cb.setValue(plugin.localStorage.getPATHPaths().join("\n"));
         cb.onChange((value) => {
           plugin.localStorage.setPATHPaths(value.split("\n"));
@@ -32555,30 +32555,30 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
       });
     if (plugin.gitManager instanceof SimpleGit)
       new import_obsidian8.Setting(containerEl).setName("Reload with new environment variables").setDesc(
-        "Removing previously added environment variables will not take effect until Obsidian is restarted."
+        "删除之前添加的环境变量要等到Obsidian重新启动后才会生效。"
       ).addButton((cb) => {
-        cb.setButtonText("Reload");
+        cb.setButtonText("重新加载");
         cb.setCta();
         cb.onClick(() => {
           plugin.gitManager.setGitInstance();
         });
       });
-    new import_obsidian8.Setting(containerEl).setName("Custom base path (Git repository path)").setDesc(
+    new import_obsidian8.Setting(containerEl).setName("自定义基本路径（Git 存储库路径）").setDesc(
       `
-            Sets the relative path to the vault from which the Git binary should be executed.
-             Mostly used to set the path to the Git repository, which is only required if the Git repository is below the vault root directory. Use "\\" instead of "/" on Windows.
+            设置进行Git二进制文件备份的相对路径。
+            主要用于设置Git存储库的路径，仅当Git存储库位于Vault根目录下时才需要。在Windows上使用“\”而不是“/”。
             `
     ).addText((cb) => {
       cb.setValue(plugin.settings.basePath);
-      cb.setPlaceholder("directory/directory-with-git-repo");
+      cb.setPlaceholder("目录/带存储库的目录");
       cb.onChange((value) => {
         plugin.settings.basePath = value;
         plugin.saveSettings();
         plugin.gitManager.updateBasePath(value || "");
       });
     });
-    new import_obsidian8.Setting(containerEl).setName("Custom Git directory path (Instead of '.git')").setDesc(
-      `Requires restart of Obsidian to take effect. Use "\\" instead of "/" on Windows.`
+    new import_obsidian8.Setting(containerEl).setName("自定义Git目录路径（而不是“.git”）").setDesc(
+      `必须重新启动Obsidian才能使更改生效。在Windows上使用“\”而不是“/”。`
     ).addText((cb) => {
       cb.setValue(plugin.settings.gitDir);
       cb.setPlaceholder(".git");
@@ -32587,7 +32587,7 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
         plugin.saveSettings();
       });
     });
-    new import_obsidian8.Setting(containerEl).setName("Disable on this device").addToggle(
+    new import_obsidian8.Setting(containerEl).setName("在此设备上禁用").addToggle(
       (toggle) => toggle.setValue(plugin.localStorage.getPluginDisabled()).onChange((value) => {
         plugin.localStorage.setPluginDisabled(value);
         if (value) {
@@ -32600,15 +32600,15 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
         );
       })
     );
-    new import_obsidian8.Setting(containerEl).setName("Donate").setDesc(
-      "If you like this Plugin, consider donating to support continued development."
+    new import_obsidian8.Setting(containerEl).setName("捐赠").setDesc(
+      "如果您喜欢这个插件，请考虑捐赠以支持持续开发。"
     ).addButton((bt) => {
-      bt.buttonEl.outerHTML = "<a href='https://ko-fi.com/F1F195IQ5' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>";
+      bt.buttonEl.outerHTML = "<a href='https://ko-fi.com/F1F195IQ5' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='在 ko-fi.com 给我买杯咖啡' /></a>";
     });
     const info = containerEl.createDiv();
     info.setAttr("align", "center");
     info.setText(
-      "Debugging and logging:\nYou can always see the logs of this and every other plugin by opening the console with"
+      "调试和日志记录：您始终可以通过打开控制台来查看此插件以及所有其他插件的日志"
     );
     const keys = containerEl.createDiv();
     keys.setAttr("align", "center");
